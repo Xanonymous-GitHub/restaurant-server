@@ -16,7 +16,7 @@ type Restaurants struct {
 func (d Restaurants) GetList(token string) {
 	//You can't see the sql information.
 	//get secrete info.
-	sqlInfo, err := secretes.GetSqlInfo(secretes.TeU, token)
+	sqlInfo, err := secretes.GetSqlInfo(secretes.SqlInfo{}.Key(), token)
 	if err != nil {
 		panic(err.Error())
 	}

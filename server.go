@@ -1,6 +1,8 @@
 package main
 
-import "github.com/Xanonymous-GitHub/restaurant-server/db"
+import (
+	"github.com/Xanonymous-GitHub/restaurant-server/db"
+)
 
 func run() {
 	var tmp db.Restaurants

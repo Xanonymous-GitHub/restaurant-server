@@ -5,13 +5,17 @@ import (
 	"log"
 )
 
-type sqlInfo struct {
+type SqlInfo struct {
 	userName string
 	password string
 	token    string
 }
 
-func GetSqlInfo(q sqlInfo, token string) (map[string]string, error) {
+type G interface {
+	Key() SqlInfo
+}
+
+func GetSqlInfo(q SqlInfo, token string) (map[string]string, error) {
 	u, err := q.getUserName(token)
 	p, err := q.getPassword(token)
 	if err != nil {
@@ -23,18 +27,18 @@ func GetSqlInfo(q sqlInfo, token string) (map[string]string, error) {
 	}, nil
 }
 
-func (q sqlInfo) getUserName(token string) (string, error) {
-	if token != q.token {
+func (g SqlInfo) getUserName(token string) (string, error) {
+	if token != g.token {
 		return "", errors.New("wrong token to get the username\n")
 	}
-	return q.userName, nil
+	return g.userName, nil
 }
 
-func (q sqlInfo) getPassword(token string) (string, error) {
-	if token != q.token {
+func (g SqlInfo) getPassword(token string) (string, error) {
+	if token != g.token {
 		return "", errors.New("wrong token to get the password\n")
 	}
-	return q.password, nil
+	return g.password, nil
 }
 
 func reject(err error) error {
